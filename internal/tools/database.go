@@ -1,6 +1,8 @@
 package tools
 
 import (
+	"sync"
+
 	log "github.com/sirupsen/logrus"
 )
 
@@ -21,16 +23,29 @@ type DatabaseInterface interface {
 	SetupDatabase() error
 }
 
+var (
+	globalDB *sqliteDB
+	initOnce sync.Once
+)
+
 func NewDatabaseInterface() (*DatabaseInterface, error) {
-	// In a real implementation, this would establish a connection to the database and return an interface to interact with it.
 	log.Info("Connecting to database...")
 
-	var database DatabaseInterface = &mockDB{}
-	var err error = database.SetupDatabase()
-	if err != nil {
-		log.Error("Failed to set up database: ", err)
-		return nil, err
+	var initErr error
+	initOnce.Do(func() {
+		db := &sqliteDB{}
+		initErr = db.SetupDatabase()
+		if initErr != nil {
+			log.Error("Failed to set up sqlite database: ", initErr)
+			return
+		}
+		globalDB = db
+	})
+
+	if initErr != nil {
+		return nil, initErr
 	}
 
+	var database DatabaseInterface = globalDB
 	return &database, nil
 }

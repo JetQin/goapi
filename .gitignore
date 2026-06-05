@@ -1,0 +1,22 @@
+# Binaries
+/bin/
+*.exe
+*.out
+
+# Test
+*.test
+
+# Vendor
+/vendor/
+
+# Database files
+*.db
+
+# GoLand
+.idea/
+
+# macOS
+.DS_Store
+
+# Build
+dist/

@@ -28,8 +28,8 @@ func GetCoinBalance(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var tokenDetails *tools.CoinDetails
-	tokenDetails, err = (*database).GetUserCoinDetails(params.Username)
+	var coinDetails *tools.CoinDetails
+	coinDetails, err = (*database).GetUserCoinDetails(params.Username)
 	if err != nil {
 		log.Error("Failed to fetch coin details: ", err)
 		api.InternalErrorHandler(w, err)
@@ -38,7 +38,7 @@ func GetCoinBalance(w http.ResponseWriter, r *http.Request) {
 
 	response := api.CoinBalanceResponse{
 		Code:    http.StatusOK,
-		Balance: (*tokenDetails).Coins,
+		Balance: (*coinDetails).Coins,
 	}
 	w.Header().Set("Content-Type", "application/json")
 	err = json.NewEncoder(w).Encode(response)
