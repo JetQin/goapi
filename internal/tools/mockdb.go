@@ -1,31 +1,32 @@
 package tools
 
 import (
+	"fmt"
 	"time"
 )
 
-type mockDB struct {}
+type mockDB struct{}
 
-type mockLoginDetails = map[string]LoginDetails{
+var mockLoginDetails = map[string]LoginDetails{
 	"alex": {
 		AuthToken: "123ABC",
 		Username:  "alex",
 	},
 	"bob": {
-		AuthToken	: "456DEF",
+		AuthToken: "456DEF",
 		Username:  "bob",
-	}
+	},
 }
 
-type mockCoinDetails = map[string]CoinDetails{
+var mockCoinDetails = map[string]CoinDetails{
 	"alex": {
-		Coins: 100,
+		Coins:    100,
 		Username: "alex",
 	},
 	"bob": {
-		Coins: 50,
+		Coins:    50,
 		Username: "bob",
-	}
+	},
 }
 
 func (db *mockDB) GetUserLoginDetails(username string) (*LoginDetails, error) {
@@ -53,4 +54,3 @@ func (db *mockDB) SetupDatabase() error {
 	// For the mock, we can just return nil to indicate success.
 	return nil
 }
-	

@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/jetqin/goapi/api"
+	"github.com/jetqin/goapi/internal/tools"
 	log "github.com/sirupsen/logrus"
 )
 

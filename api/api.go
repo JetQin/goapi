@@ -1,7 +1,7 @@
 package api
 
 import (
-	"json"
+	"encoding/json"
 	"net/http"
 )
 

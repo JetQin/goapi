@@ -7,7 +7,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-func Handlers(r *chi.Mux) {
+func RegisterHandlers(r *chi.Mux) {
 	r.Use(chimiddle.StripSlashes)
 	r.Use(middleware.Logger(logrus.StandardLogger()))
 	r.Route("/account", func(router chi.Router) {
